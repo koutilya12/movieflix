@@ -18,16 +18,16 @@ const App = () => {
                     let iconName;
                     if (route.name === 'Home') {
                         iconName = 'home',
-                        color = focused ? "#93c7a1" : "white"
+                            color = focused ? "#93c7a1" : "white"
                     } else if (route.name === 'Search') {
                         iconName = 'search',
-                        color = focused ? "#93c7a1" : "white"
+                            color = focused ? "#93c7a1" : "white"
                     } else if (route.name === 'Favourites') {
                         iconName = 'heart',
-                        color = focused ? "#93c7a1" : "white"
+                            color = focused ? "#93c7a1" : "white"
                     } else if (route.name === 'Settings') {
                         iconName = 'settings',
-                        color = focused ? "#93c7a1" : "white"
+                            color = focused ? "#93c7a1" : "white"
                     }
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
@@ -35,12 +35,13 @@ const App = () => {
                 tabBarInactiveTintColor: 'gray',
                 tabBarStyle: {
                     backgroundColor: '#1a1919',
-                }
+                },
+                tabBarHideOnKeyboard: true
             })}
 
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Search" component={Search} />
+            <Tab.Screen name="Search" component={Search}/>
             <Tab.Screen name="Favourites" component={Favourites} />
             <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>

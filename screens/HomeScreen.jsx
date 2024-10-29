@@ -6,7 +6,7 @@ import {
     Image,
     ScrollView
 } from 'react-native';
-import { fetchPopularMovies, fetchTopRatedMovies, fetchUpcomingMovies } from '../api/moviedb'
+import { fetchMovieDetails, fetchPopularMovies, fetchTopRatedMovies, fetchUpcomingMovies } from '../api/moviedb'
 import NowPlaying from '../components/NowPlaying';
 import UpComing from '../components/UpComing';
 import TopRated from '../components/TopRated';
@@ -15,8 +15,6 @@ import nowPlaying from '../nowPlaying.json';
 const HomeScreen = ({ navigation }) => {
 
     useEffect(() => {
-        // console.log('====>', nowPlaying[0].results)
-        console.log('====>1', navigation)
         getPopularMovies()
     }, [])
 
@@ -24,37 +22,37 @@ const HomeScreen = ({ navigation }) => {
     const [topRatedMovieData, setTopRatedMovieData] = useState({})
     const [upcomingMovieData, setUpcomingMovieData] = useState({})
 
-    // const getPopularMovies = async () => {
-    // const popularMovies = await fetchPopularMovies()
-    // console.log('got popular movies: ', popularMovies)
-    // setPopularMovieData(popularMovies.results)
-    // 
-    // const topRatedMovies = await fetchTopRatedMovies()
-    // console.log('got top rated movies: ', topRatedMovies)
-    // setTopRatedMovieData(topRatedMovies.results)
-
-    // const upcomingMovies = await fetchUpcomingMovies()
-    // console.log('got upcoming movies: ', upcomingMovies)
-    // setUpcomingMovieData(upcomingMovies.results)
-    // }
-
     const getPopularMovies = async () => {
-        setPopularMovieData(nowPlaying[0].results)
-        setTopRatedMovieData(nowPlaying[0].results)
-        setUpcomingMovieData(nowPlaying[0].results)
+    const popularMovies = await fetchPopularMovies()
+    console.log('got popular movies: ', popularMovies)
+    setPopularMovieData(popularMovies.results)
+    
+    const topRatedMovies = await fetchTopRatedMovies()
+    console.log('got top rated movies: ', topRatedMovies)
+    setTopRatedMovieData(topRatedMovies.results)
+
+    const upcomingMovies = await fetchUpcomingMovies()
+    console.log('got upcoming movies: ', upcomingMovies)
+    setUpcomingMovieData(upcomingMovies.results)
     }
+
+    // const getPopularMovies = async () => {
+        // setPopularMovieData(nowPlaying[0].results)
+        // setTopRatedMovieData(nowPlaying[0].results)
+        // setUpcomingMovieData(nowPlaying[0].results)
+    // }
 
     return (
         <ScrollView style={styles.main}>
             <View>
                 <Image
-                    source={{ uri: "https://images.pexels.com/photos/3348748/pexels-photo-3348748.jpeg" }}
+                    source={{ uri: "https://m.media-amazon.com/images/I/71OHH9HaB5S._AC_UF1000,1000_QL80_.jpg" }}
                     style={{ height: 350, width: "100%", borderRadius: 20, margin: 5 }}
                 />
             </View>
-            <NowPlaying movieData={popularMovieData} navigation={navigation}/>
-            <UpComing movieData={topRatedMovieData} />
-            <TopRated movieData={upcomingMovieData} />
+            <NowPlaying movieData={{...{"movieList": popularMovieData}, ...{"category": "Popular"}}} navigation={navigation}/>
+            <UpComing movieData={{...{"movieList": topRatedMovieData}, ...{"category": "Top Rated"}}} />
+            <TopRated movieData={{...{"movieList": upcomingMovieData}, ...{"category": "Upcoming"}}} />
         </ScrollView>
     )
 }

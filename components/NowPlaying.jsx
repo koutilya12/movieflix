@@ -3,7 +3,8 @@ import React, {useEffect} from 'react'
 import ListView from './ListView'
 
 const NowPlaying = ( props ) => {
-
+    useEffect(() => {
+    }, [])
     return (
         <ListView props = {props} />
     )

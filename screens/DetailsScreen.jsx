@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { Ionicons } from '@expo/vector-icons';
 
 const DetailsScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -12,14 +13,15 @@ const DetailsScreen = ({ route }) => {
 
   const [movieDetails, setMovieDetails] = useState({})
   useEffect(() => {
-    console.log('++++', route.params)
     setMovieDetails(route.params)
-    console.log('&&11', movieDetails)
   }, [])
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#131212" }}>
-      <Text style={{ ...styles.titleStyle, textAlign: "center" }}>{movieDetails.original_title}</Text>
+      <View style={{ flexDirection: "row", justifyContent: "center"}}>
+        <Ionicons name="arrow-back" size={30} color="white" style={styles.iconStyle} onPress={() => {navigation.navigate("HomeScreen")}}/>
+        <Text style={{ ...styles.titleStyle, textAlign: "center" }}>{movieDetails.original_title}</Text>
+      </View>
       <Image
         source={{ uri: 'https://image.tmdb.org/t/p/w500/' + movieDetails.backdrop_path }}
         style={styles.posterStyle}
@@ -54,6 +56,12 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 8,
     color: "white"
+  },
+  iconStyle: {
+    position: "absolute",
+    left: 0,
+    marginTop: 5,
+    marginLeft: 5
   }
 })
 
